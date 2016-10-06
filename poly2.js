@@ -19,7 +19,7 @@ function LinkedList() {
         this.coef = coef;
         this.expn = expn;
         this.next = null;
-    }
+    };
     var length = 0;
     var head = null;
     var tail = null;
@@ -52,7 +52,7 @@ function LinkedList() {
             current.next = node2;
         }
         length++;
-    }
+    };
     this.removeAt = function(position) {
         if (position > -1 && position < length) {
             var current = head,
@@ -95,7 +95,7 @@ function LinkedList() {
         } else {
             return false;
         }
-    }
+    };
     this.indexOfValue = function(coef, expn) {
         var current = head;
         index = 0;
@@ -107,15 +107,15 @@ function LinkedList() {
             current = current.next;
         }
         return -1;
-    }
+    };
     this.removeNode = function(node) {
         var index = this.indexOfNode(node);
         return this.removeAt(index);
-    }
+    };
     this.removeOfValue = function(coef, expn) {
         var index = this.indexOfValue(coef, expn);
         return this.removeAt(index);
-    }
+    };
     this.indexOfNode = function(node) {
         var current = head;
         index = -1;
@@ -127,32 +127,32 @@ function LinkedList() {
             current = current.next;
         }
         return -1;
-    }
+    };
     this.isEmpty = function() {
         return length === 0;
-    }
+    };
     this.size = function() {
         return length;
-    }
+    };
     this.getHead = function() {
         return head;
-    }
+    };
     this.getTail = function() {
         var p = head;
         while (p.next) {
             p = p.next;
         }
         return p;
-    }
+    };
     this.getNext = function(node) {
         return node.next;
-    }
+    };
     this.printPoly = function() {
         var p = head;
         var flag = 0;
         while (p) {
             if (p.coef >= 0) {
-                if (flag == 0) {
+                if (flag === 0) {
                     process.stdout.write(p.coef + 'X^' + p.expn);
                     //console.log(p.coef+'X^'+p.expn);
                     flag = 1;
@@ -172,7 +172,7 @@ function LinkedList() {
             }
             p = p.next;
         }
-    }
+    };
     this.sortPoly = function() {
         var poly = new LinkedList();
         var p = head;
@@ -204,7 +204,7 @@ function LinkedList() {
             p = head;
         }
         return poly;
-    }
+    };
 
 }
 var reg1 = /[\+\-]/;
@@ -215,7 +215,7 @@ function getPoly(input) {
     var terms = input.split(reg1);
     var signs = input.match(reg2);
     if (input[0] == '-') {
-        signs.unshift('-')
+        signs.unshift('-');
     } else {
         signs.unshift('+');
     }
@@ -233,11 +233,11 @@ function getPoly(input) {
                     term[i][0] = 1;
                 }
                 term[i][2] = parseInt(term[i][2]);
-                linklist.append(term[i][0], term[i][2])
+                linklist.append(term[i][0], term[i][2]);
             } else if (term[i].length == 2) {
-                linklist.append(term[i][0], 1)
+                linklist.append(term[i][0], 1);
             } else {
-                linklist.append(term[i][0], 0)
+                linklist.append(term[i][0], 0);
             }
             i++;
         } else if (signs[i] == '-') {
@@ -247,11 +247,11 @@ function getPoly(input) {
                     term[i][0] = 1;
                 }
                 term[i][2] = parseInt(term[i][2]);
-                linklist.append(term[i][0], term[i][2])
+                linklist.append(term[i][0], term[i][2]);
             } else if (term[i].length == 2) {
-                linklist.append(term[i][0], 1)
+                linklist.append(term[i][0], 1);
             } else {
-                linklist.append(term[i][0], 0)
+                linklist.append(term[i][0], 0);
             }
             i++;
         }
@@ -271,7 +271,7 @@ function addition(poly1, poly2) {
             p1 = p1.next;
         } else if (p1.expn == p2.expn) {
             sum = p1.coef + p2.coef;
-            if (sum != 0) {
+            if (sum !== 0) {
                 p1.coef = sum;
                 poly3.appendNode(p1);
                 //p3 = poly3.getHead();
