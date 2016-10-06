@@ -330,7 +330,23 @@ function multiplication(poly1, poly2) {
     }
     return poly3;
 }
-var poly1, poly2, poly3, poly4;
+
+function derivation(poly) {
+    var poly3 = new LinkedList();
+    var p = poly.getHead();
+    var res = {
+        coef: null,
+        expn: null
+    };
+    while (p) {
+        res.coef = p.coef * p.expn;
+        res.expn = p.expn - 1;
+        poly3.appendNode(res);
+        p = p.next;
+    }
+    return poly3;
+}
+var poly1, poly2, poly3, poly4, poly5;
 
 
 poly1 = getPoly('5x+2').sortPoly();
@@ -338,8 +354,11 @@ poly2 = getPoly('6x+3').sortPoly();
 // poly3 = subtraction(poly1, poly2);
 //poly3.printPoly();
 poly4 = multiplication(poly1, poly2).sortPoly();
+poly5 = derivation(poly4);
 poly1.printPoly();
 console.log();
 poly2.printPoly();
 console.log();
 poly4.printPoly();
+console.log();
+poly5.printPoly();
