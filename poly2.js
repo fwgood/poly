@@ -296,7 +296,7 @@ function addition(poly1, poly2) {
         poly3.appendNode(p1);
         p1 = p1.next;
     }
-    return poly3;
+    return poly3.sortPoly();
 }
 
 function subtraction(poly1, poly2) {
@@ -306,18 +306,40 @@ function subtraction(poly1, poly2) {
         poly3.append(-(p.coef), p.expn);
         p = p.next;
     }
-    return addition(poly1, poly3);
+    return addition(poly1, poly3).sortPoly();
 }
 
 function multiplication(poly1, poly2) {
-
+    var p1 = poly1.getHead();
+    var p2 = poly2.getHead();
+    var poly3 = new LinkedList();
+    var res = {
+        coef: null,
+        expn: null
+    };
+    while (p1) {
+        while (p2) {
+            res.coef = p1.coef * p2.coef;
+            res.expn = p1.expn + p2.expn;
+            poly3.appendNode(res);
+            p2 = p2.next;
+        }
+        var p3 = poly3.getHead();
+        p1 = p1.next;
+        p2 = poly2.getHead();
+    }
+    return poly3;
 }
 var poly1, poly2, poly3, poly4;
 
 
-poly1 = getPoly('5x^9+6x^8+5x^7-4x^8+18x^3+4x^9');
-// poly2 = getPoly('17x^3-8x^2+8x^1');
+poly1 = getPoly('5x+2').sortPoly();
+poly2 = getPoly('6x+3').sortPoly();
 // poly3 = subtraction(poly1, poly2);
 //poly3.printPoly();
-poly4 = poly1.sortPoly();
+poly4 = multiplication(poly1, poly2).sortPoly();
+poly1.printPoly();
+console.log();
+poly2.printPoly();
+console.log();
 poly4.printPoly();
