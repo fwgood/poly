@@ -353,6 +353,7 @@ poly1 = getPoly('5x+2').sortPoly();
 poly2 = getPoly('6x+3').sortPoly();
 // poly3 = subtraction(poly1, poly2);
 //poly3.printPoly();
+
 poly4 = multiplication(poly1, poly2).sortPoly();
 poly5 = derivation(poly4);
 poly1.printPoly();
