@@ -207,35 +207,64 @@ function LinkedList() {
     };
 
 }
-var reg1 = /[\+\-]/;
-var reg2 = /[\-\+](.*?)/g;
+Array.prototype.indexOf = function(val) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == val) return i;
+    }
+    return -1;
+};
+Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    while (index > -1) {
+        this.splice(index, 1);
+        index = this.indexOf(val);
+    }
+};
+var reg1 = /\d+x\^\(\-\d\)|\d+x\^\d|\dx|\d|\w/g;
+var reg2 = /(\(\-)|[\+\-]/g;
 var reg3 = /[(x\^)]/;
 
 function getPoly(input) {
-    var terms = input.split(reg1);
+    var terms = input.match(reg1);
     var signs = input.match(reg2);
+    signs.remove('(-');
     if (input[0] == '-') {
         signs.unshift('-');
     } else {
         signs.unshift('+');
     }
+    console.log(signs);
     //console.log(terms);
     var linklist = new LinkedList();
     var i = 0,
         j = 0;
     var term = [];
+    var x;
     while (terms[i]) {
         term[i] = terms[i].split(reg3);
         if (signs[i] == '+') {
             term[i][0] = parseFloat(term[i][0]);
-            if (term[i].length == 3) {
+            if (term[i].length == 5) {
+                if (isNaN(term[i][0])) {
+                    term[i][0] = 1;
+                }
+                term[i][3] = parseInt(term[i][3]);
+                linklist.append(term[i][0], term[i][3]);
+                x = linklist.getHead();
+
+            } else if (term[i].length == 3) {
                 if (isNaN(term[i][0])) {
                     term[i][0] = 1;
                 }
                 term[i][2] = parseInt(term[i][2]);
                 linklist.append(term[i][0], term[i][2]);
             } else if (term[i].length == 2) {
-                linklist.append(term[i][0], 1);
+                if (isNaN(term[i][0])) {
+                    linklist.append(1, 1);
+                } else {
+                    linklist.append(term[i][0], 1);
+                }
+
             } else {
                 linklist.append(term[i][0], 0);
             }
@@ -256,6 +285,7 @@ function getPoly(input) {
             i++;
         }
     }
+
     return linklist;
 }
 
@@ -347,19 +377,36 @@ function derivation(poly) {
     return poly3;
 }
 var poly1, poly2, poly3, poly4, poly5;
-
-
-poly1 = getPoly('5x+2').sortPoly();
-poly2 = getPoly('6x+3').sortPoly();
+// rl.question("请输入一个多项式:", function(poly) {
+//     poly1 = getPoly(poly);
+//     rl.question("请输入另一个多项式:", function(poly) {
+//         poly2 = getPoly(poly);
+//         poly4 = multiplication(poly1, poly2).sortPoly();
+//         poly5 = derivation(poly4);
+//         poly1.printPoly();
+//         console.log();
+//         poly2.printPoly();
+//         console.log();
+//         poly4.printPoly();
+//         console.log();
+//         poly5.printPoly();
+//         rl.close();
+//         // 不加close，则不会结束
+//     });
+//     // 不加close，则不会结束
+// });
+//poly1 = getPoly('4x^(-2)-5x+2').sortPoly();
+poly2 = getPoly('6x^(-7)+3x^2+x^6-9');
+poly2 = poly2.sortPoly();
 // poly3 = subtraction(poly1, poly2);
-//poly3.printPoly();
+// poly3.printPoly();
 
-poly4 = multiplication(poly1, poly2).sortPoly();
-poly5 = derivation(poly4);
-poly1.printPoly();
-console.log();
+// poly4 = multiplication(poly1, poly2).sortPoly();
+// poly5 = derivation(poly4);
+//poly1.printPoly();
+// console.log();
 poly2.printPoly();
-console.log();
-poly4.printPoly();
-console.log();
-poly5.printPoly();
+// console.log();
+// poly4.printPoly();
+// console.log();
+// poly5.printPoly();
