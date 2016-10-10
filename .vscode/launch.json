@@ -4,7 +4,11 @@
         "name": "启动",
         "type": "node",
         "request": "launch",
+<<<<<<< HEAD
         "program": "${workspaceRoot}/poly2.js",
+=======
+        "program": "${workspaceRoot}/xxx.js",
+>>>>>>> origin/master
         "stopOnEntry": false,
         "args": [],
         "cwd": "${workspaceRoot}",

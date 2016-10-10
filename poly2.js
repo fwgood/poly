@@ -232,6 +232,7 @@ var reg3 = /[(x\^)]/;
 
 function getPoly(input) {
     var terms = input.match(reg1);
+<<<<<<< HEAD
     var signs = new Array();
     var ppp = input.match(reg2);
     console.log(ppp);
@@ -258,6 +259,16 @@ function getPoly(input) {
     //     signs[0] = '+';
     // }
 
+=======
+    var signs = input.match(reg2);
+    signs.remove('(-');
+    if (input[0] == '-') {
+        signs.unshift('-');
+    } else {
+        signs.unshift('+');
+    }
+    console.log(signs);
+>>>>>>> origin/master
     //console.log(terms);
     var linklist = new LinkedList();
     var i = 0,
@@ -409,11 +420,14 @@ function derivation(poly) {
     return poly3;
 }
 var poly1, poly2, poly3, poly4, poly5;
+<<<<<<< HEAD
 
 
 // function add() {
 //     alert(input1.value);
 // }
+=======
+>>>>>>> origin/master
 // rl.question("请输入一个多项式:", function(poly) {
 //     poly1 = getPoly(poly);
 //     rl.question("请输入另一个多项式:", function(poly) {
@@ -432,6 +446,7 @@ var poly1, poly2, poly3, poly4, poly5;
 //     });
 //     // 不加close，则不会结束
 // });
+<<<<<<< HEAD
 
 
 poly1 = getPoly('-6x^(-2)');
@@ -445,3 +460,20 @@ console.log();
 //poly2.printPoly();
 console.log();
 poly4.printPoly();
+=======
+//poly1 = getPoly('4x^(-2)-5x+2').sortPoly();
+poly2 = getPoly('6x^(-7)+3x^2+x^6-9');
+poly2 = poly2.sortPoly();
+// poly3 = subtraction(poly1, poly2);
+// poly3.printPoly();
+
+// poly4 = multiplication(poly1, poly2).sortPoly();
+// poly5 = derivation(poly4);
+//poly1.printPoly();
+// console.log();
+poly2.printPoly();
+// console.log();
+// poly4.printPoly();
+// console.log();
+// poly5.printPoly();
+>>>>>>> origin/master

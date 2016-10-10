@@ -3,7 +3,11 @@ var x2 = '5x^(-6)';
 var x3 = 'x^6';
 var x4 = 'x';
 var x5 = '5x^6';
+<<<<<<< HEAD
 var x6 = '5'; 
+=======
+var x6 = '5';
+>>>>>>> origin/master
 var reg3 = /[(x\^)]/;
 var reg;
 x1 = x1.split(reg3);
