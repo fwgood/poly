@@ -226,19 +226,16 @@ var reg3 = /[(x\^)]/;
 function getPoly(input) {
     var terms = input.match(reg1);
     var signs = new Array();
-
-    if (input.match(reg2)) {
-        signs = input.match(reg2);
+    var ppp = input.match(reg2);
+    console.log(ppp);
+    signs = ppp;
+    //signs.remove('(-');
+    if (ppp) {
+        signs = ppp;
         signs.remove('(-');
-
-        if (input[0] == '-') {
-            signs.unshift('-');
-        } else {
+        if (signs[0] != '-') {
             signs.unshift('+');
         }
-        console.log(signs);
-    } else {
-        signs[0] = '+';
     }
     //console.log(terms);
     var linklist = new LinkedList();
@@ -394,12 +391,11 @@ function derivation(poly) {
 function er(num) {
     var reg1 = /[a-w]|[yz]/g;
     var reg2 = /[\+\-]{2,}/g;
-    var reg3 = /[~!@#$%\&\*_`,.\?\\\/]/g
-
+    var reg3 = /[~!@#$%\&\*_`,.\?\\\/={}\[\]\'\"\:;]/g
     if (num == 1) {
         var str = document.getElementById("doc-ipt-1").value;
         if (str != '') {
-            if (!str.match(reg1) || !str.match(reg2) || !str.match(reg3)) {
+            if (str.match(reg1) || str.match(reg2) || str.match(reg3)) {
                 alert('请输入正确的表达式');
                 clea();
             }
@@ -409,7 +405,7 @@ function er(num) {
     if (num == 2) {
         var str = document.getElementById("doc-ipt-2").value;
         if (str != '') {
-            if (!str.match(reg1) || !str.match(reg2) || !str.match(reg3)) {
+            if (str.match(reg1) || str.match(reg2) || str.match(reg3)) {
                 alert('请输入正确的表达式');
                 clea();
             }
@@ -493,12 +489,13 @@ function der() {
         } else {
             if (poly_1 != '') {
                 poly1_g = getPoly(poly_1).sortPoly();
-                var poly3 = derivation(poly1_g).sortPoly();
+                var poly3 = derivation(poly1_g);
                 var ppp = poly3.getHead();
+                poly1_g.printPoly();
                 poly3.printPoly();
             } else {
                 poly2_g = getPoly(poly_2).sortPoly();
-                var poly3 = derivation(poly2_g).sortPoly();
+                var poly3 = derivation(poly2_g);
                 var ppp = poly3.getHead();
                 poly3.printPoly();
             }
