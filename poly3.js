@@ -395,19 +395,18 @@ var poly1, poly2, poly3, poly4, poly5;
 //     });
 //     // 不加close，则不会结束
 // });
-poly1 = getPoly('4x^(-2)-5x+2');
-poly1 = poly1.sortPoly();
-poly2 = getPoly('5x^2+7');
+//poly1 = getPoly('4x^(-2)-5x+2').sortPoly();
+poly2 = getPoly('6x^(-7)+3x^2+x^6-9');
 poly2 = poly2.sortPoly();
 // poly3 = subtraction(poly1, poly2);
 // poly3.printPoly();
 
-poly4 = multiplication(poly1, poly2).sortPoly();
+// poly4 = multiplication(poly1, poly2).sortPoly();
 // poly5 = derivation(poly4);
-poly1.printPoly();
-console.log();
+//poly1.printPoly();
+// console.log();
 poly2.printPoly();
-console.log();
-poly4.printPoly();
+// console.log();
+// poly4.printPoly();
 // console.log();
 // poly5.printPoly();

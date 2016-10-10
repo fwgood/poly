@@ -4,7 +4,7 @@
         "name": "启动",
         "type": "node",
         "request": "launch",
-        "program": "${workspaceRoot}/xx.js",
+        "program": "${workspaceRoot}/test2.js",
         "stopOnEntry": false,
         "args": [],
         "cwd": "${workspaceRoot}",

@@ -1,4 +1,4 @@
-var reg1 = /\d+x\^\(\-\d\)|\d+x\^\d|\dx|\d/g;
+
 var reg2 = /(\(\-)|[\+\-]/g;
 var x = '5x^(-2)-6x^2+8x-6x+7-6x^(-7)';
 var m = x.match(reg1);
