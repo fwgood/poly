@@ -232,14 +232,32 @@ var reg3 = /[(x\^)]/;
 
 function getPoly(input) {
     var terms = input.match(reg1);
-    var signs = input.match(reg2);
-    signs.remove('(-');
-    if (input[0] == '-') {
-        signs.unshift('-');
-    } else {
-        signs.unshift('+');
+    var signs = new Array();
+    var ppp = input.match(reg2);
+    console.log(ppp);
+    signs = ppp;
+    //signs.remove('(-');
+    if (ppp) {
+        signs = ppp;
+        signs.remove('(-');
+        if (signs[0] != '-') {
+            signs.unshift('+');
+        }
     }
-    console.log(signs);
+    // if (input.match(reg2)) {
+    //     signs = input.match(reg2);
+    //     signs.remove('(-');
+    //     console.log(signs);
+    //     if (input[0] == '-') {
+    //         signs.unshift('-');
+    //     } else {
+    //         signs.unshift('+');
+    //     }
+    //     console.log(signs);
+    // } else {
+    //     signs[0] = '+';
+    // }
+
     //console.log(terms);
     var linklist = new LinkedList();
     var i = 0,
@@ -277,7 +295,15 @@ function getPoly(input) {
             i++;
         } else if (signs[i] == '-') {
             term[i][0] = -parseFloat(term[i][0]);
-            if (term[i].length == 3) {
+            if (term[i].length == 5) {
+                if (isNaN(term[i][0])) {
+                    term[i][0] = 1;
+                }
+                term[i][3] = parseInt(term[i][3]);
+                linklist.append(term[i][0], term[i][3]);
+                x = linklist.getHead();
+
+            } else if (term[i].length == 3) {
                 if (isNaN(term[i][0])) {
                     term[i][0] = 1;
                 }
@@ -408,13 +434,14 @@ var poly1, poly2, poly3, poly4, poly5;
 // });
 
 
-poly1 = getPoly('6x^2+7x');
+poly1 = getPoly('-6x^(-2)');
 poly1 = poly1.sortPoly();
-poly2 = getPoly('7x^2+8x');
-poly2 = poly2.sortPoly();
-poly4 = addition(poly1, poly2).sortPoly();
+// poly2 = getPoly('7x^2+8x');
+// poly2 = poly2.sortPoly();
+poly4 = derivation(poly1);
+//poly4 = addition(poly1, poly2).sortPoly();
 poly1.printPoly();
 console.log();
-poly2.printPoly();
+//poly2.printPoly();
 console.log();
 poly4.printPoly();

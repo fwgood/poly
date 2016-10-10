@@ -225,12 +225,20 @@ var reg3 = /[(x\^)]/;
 
 function getPoly(input) {
     var terms = input.match(reg1);
-    var signs = input.match(reg2);
-    signs.remove('(-');
-    if (input[0] == '-') {
-        signs.unshift('-');
+    var signs = new Array();
+
+    if (input.match(reg2)) {
+        signs = input.match(reg2);
+        signs.remove('(-');
+
+        if (input[0] == '-') {
+            signs.unshift('-');
+        } else {
+            signs.unshift('+');
+        }
+        console.log(signs);
     } else {
-        signs.unshift('+');
+        signs[0] = '+';
     }
     //console.log(terms);
     var linklist = new LinkedList();
@@ -269,7 +277,15 @@ function getPoly(input) {
             i++;
         } else if (signs[i] == '-') {
             term[i][0] = -parseFloat(term[i][0]);
-            if (term[i].length == 3) {
+            if (term[i].length == 5) {
+                if (isNaN(term[i][0])) {
+                    term[i][0] = 1;
+                }
+                term[i][3] = parseInt(term[i][3]);
+                linklist.append(term[i][0], term[i][3]);
+                x = linklist.getHead();
+
+            } else if (term[i].length == 3) {
                 if (isNaN(term[i][0])) {
                     term[i][0] = 1;
                 }
@@ -375,49 +391,121 @@ function derivation(poly) {
     return poly3;
 }
 
+function er(num) {
+    var reg1 = /[a-w]|[yz]/g;
+    var reg2 = /[\+\-]{2,}/g;
+    var reg3 = /[~!@#$%\&\*_`,.\?\\\/]/g
+
+    if (num == 1) {
+        var str = document.getElementById("doc-ipt-1").value;
+        if (str != '') {
+            if (!str.match(reg1) || !str.match(reg2) || !str.match(reg3)) {
+                alert('请输入正确的表达式');
+                clea();
+            }
+        }
+
+    }
+    if (num == 2) {
+        var str = document.getElementById("doc-ipt-2").value;
+        if (str != '') {
+            if (!str.match(reg1) || !str.match(reg2) || !str.match(reg3)) {
+                alert('请输入正确的表达式');
+                clea();
+            }
+        }
+
+    }
+
+
+}
+
 function cle() {
+    document.getElementById("doc-ipt-3").value = '';
+}
+
+function clea() {
+    document.getElementById("doc-ipt-1").value = '';
+    document.getElementById("doc-ipt-2").value = '';
     document.getElementById("doc-ipt-3").value = '';
 }
 
 function add() {
     cle();
     var poly_1 = document.getElementById("doc-ipt-1").value;
-    alert(poly_1);
     var poly_2 = document.getElementById("doc-ipt-2").value;
-    alert(poly_2);
-    poly1_g = getPoly(poly_1).sortPoly();
-    poly2_g = getPoly(poly_2).sortPoly();
-    var poly3 = addition(poly1_g, poly2_g).sortPoly();
-    var ppp = poly3.getHead();
-    poly3.printPoly();
+    if (poly_2 == '' || poly_1 == '') {
+        alert('请确认输入了两个多项式，点击确定重新输入。');
+        clea();
+    } else {
+        poly1_g = getPoly(poly_1).sortPoly();
+        poly2_g = getPoly(poly_2).sortPoly();
+        var poly3 = addition(poly1_g, poly2_g).sortPoly();
+        var ppp = poly3.getHead();
+        poly3.printPoly();
+    }
+
 }
 
 function sub() {
-        cle();
+    cle();
     var poly_1 = document.getElementById("doc-ipt-1").value;
-    alert(poly_1);
     var poly_2 = document.getElementById("doc-ipt-2").value;
-    alert(poly_2);
-    poly1_g = getPoly(poly_1).sortPoly();
-    poly2_g = getPoly(poly_2).sortPoly();
-    var poly3 = subtraction(poly1_g, poly2_g).sortPoly();
-    var ppp = poly3.getHead();
-    poly3.printPoly();
+    if (poly_2 == '' || poly_1 == '') {
+        alert('请确认输入了两个多项式，点击确定重新输入。');
+        clea();
+    } else {
+        poly1_g = getPoly(poly_1).sortPoly();
+        poly2_g = getPoly(poly_2).sortPoly();
+        var poly3 = subtraction(poly1_g, poly2_g).sortPoly();
+        var ppp = poly3.getHead();
+        poly3.printPoly();
+    }
 }
 
 function mul() {
-        cle();
+    cle();
     var poly_1 = document.getElementById("doc-ipt-1").value;
-    alert(poly_1);
     var poly_2 = document.getElementById("doc-ipt-2").value;
-    alert(poly_2);
-    poly1_g = getPoly(poly_1).sortPoly();
-    poly2_g = getPoly(poly_2).sortPoly();
-    var poly3 = multiplication(poly1_g, poly2_g).sortPoly();
-    var ppp = poly3.getHead();
-    poly3.printPoly();
+    if (poly_2 == '' || poly_1 == '') {
+        alert('请确认输入了两个多项式，点击确定重新输入。');
+        clea();
+    } else {
+        poly1_g = getPoly(poly_1).sortPoly();
+        poly2_g = getPoly(poly_2).sortPoly();
+        var poly3 = multiplication(poly1_g, poly2_g).sortPoly();
+        var ppp = poly3.getHead();
+        poly3.printPoly();
+    }
 }
 
+function der() {
+    cle();
+    var poly_1 = document.getElementById("doc-ipt-1").value;
+    var poly_2 = document.getElementById("doc-ipt-2").value;
+    if (poly_2 == '' && poly_1 == '') {
+        alert('请确认输入了一个多项式，点击确定重新输入。');
+        clea();
+    } else {
+        if (poly_2 != '' && poly_1 != '') {
+            alert('系统检测到您输入了两个多项式，请重新输入。');
+            clea();
+        } else {
+            if (poly_1 != '') {
+                poly1_g = getPoly(poly_1).sortPoly();
+                var poly3 = derivation(poly1_g).sortPoly();
+                var ppp = poly3.getHead();
+                poly3.printPoly();
+            } else {
+                poly2_g = getPoly(poly_2).sortPoly();
+                var poly3 = derivation(poly2_g).sortPoly();
+                var ppp = poly3.getHead();
+                poly3.printPoly();
+            }
+
+        }
+    }
+}
 // rl.question("请输入一个多项式:", function(poly) {
 //     poly1 = getPoly(poly);
 //     rl.question("请输入另一个多项式:", function(poly) {

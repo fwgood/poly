@@ -43,14 +43,14 @@
                 <div class="am-form-group">
                     <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">多项式1</label>
                     <div class="am-u-sm-10">
-                        <input type="text" id="doc-ipt-1" placeholder="输入第一个多项式" name="input1">
+                        <input type="text" id="doc-ipt-1" placeholder="输入第一个多项式" name="input1" onblur="er(1)">
                     </div>
                 </div>
 
                 <div class="am-form-group">
                     <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">多项式2</label>
                     <div class="am-u-sm-10">
-                        <input type="text" id="doc-ipt-2" placeholder="输入第二个多项式" name="input2">
+                        <input type="text" id="doc-ipt-2" placeholder="输入第二个多项式" name="input2" onblur="er(2)">
                     </div>
                 </div>
                 <div class="am-form-group">
@@ -63,7 +63,7 @@
                     <a class="am-btn am-btn-primary am-radius" role="button" onclick="add()">加法</a>
                     <a class=" am-btn am-btn-secondary am-radius " role="button " onclick="sub()">减法</a>
                     <a class="am-btn am-btn-success am-radius " role="button " onclick="mul()">乘法</a>
-                    <a class="am-btn am-btn-warning am-radius " role="button " onclick="">求导</a>
+                    <a class="am-btn am-btn-warning am-radius " role="button " onclick="der()">求导</a>
                 </div>
             </form>
         </div>
