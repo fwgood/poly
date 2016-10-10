@@ -7,13 +7,6 @@
 /**
  * Created by fw on 16-10-5.
  */
-const process = require('process');
-const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
 function LinkedList() {
     var Node = function(coef, expn) {
         this.coef = coef;
@@ -148,30 +141,36 @@ function LinkedList() {
         return node.next;
     };
     this.printPoly = function() {
+        var str = "";
         var p = head;
         var flag = 0;
         while (p) {
             if (p.coef >= 0) {
                 if (flag === 0) {
-                    process.stdout.write(p.coef + 'X^' + p.expn);
+                    str += p.coef + 'x^' + p.expn;
+                    document.getElementById("doc-ipt-3").value = str;
                     //console.log(p.coef+'X^'+p.expn);
                     flag = 1;
                 } else {
-                    process.stdout.write('+' + p.coef + 'X^' + p.expn);
+                    str += '+' + p.coef + 'x^' + p.expn;
+                    document.getElementById("doc-ipt-3").value = str;
                     //console.log("+%.2fX^%d", p.coef, p.expn)
                 }
             } else {
                 flag = 1;
                 if (p.expn >= 0) {
-                    process.stdout.write(p.coef + 'X^' + p.expn);
+                    str += p.coef + 'x^' + p.expn;
+                    document.getElementById("doc-ipt-3").value = str;
                     // console.log("%.2fX^%d", p.coef, p.expn);
                 } else {
-                    process.stdout.write(p.coef + 'X^(' + p.expn + ')');
+                    str += p.coef + 'x^(' + p.expn + ')';
+                    document.getElementById("doc-ipt-3").value = str;
                     //console.log("%.2fX^(%d)", p.coef, p.expn);
                 }
             }
             p = p.next;
         }
+        //document.getElementByid("doc-ipt-3").value = x;
     };
     this.sortPoly = function() {
         var poly = new LinkedList();
@@ -233,7 +232,6 @@ function getPoly(input) {
     } else {
         signs.unshift('+');
     }
-    console.log(signs);
     //console.log(terms);
     var linklist = new LinkedList();
     var i = 0,
@@ -285,7 +283,7 @@ function getPoly(input) {
             i++;
         }
     }
-
+    var pp = linklist.getHead();
     return linklist;
 }
 
@@ -376,7 +374,50 @@ function derivation(poly) {
     }
     return poly3;
 }
-var poly1, poly2, poly3, poly4, poly5;
+
+function cle() {
+    document.getElementById("doc-ipt-3").value = '';
+}
+
+function add() {
+    cle();
+    var poly_1 = document.getElementById("doc-ipt-1").value;
+    alert(poly_1);
+    var poly_2 = document.getElementById("doc-ipt-2").value;
+    alert(poly_2);
+    poly1_g = getPoly(poly_1).sortPoly();
+    poly2_g = getPoly(poly_2).sortPoly();
+    var poly3 = addition(poly1_g, poly2_g).sortPoly();
+    var ppp = poly3.getHead();
+    poly3.printPoly();
+}
+
+function sub() {
+        cle();
+    var poly_1 = document.getElementById("doc-ipt-1").value;
+    alert(poly_1);
+    var poly_2 = document.getElementById("doc-ipt-2").value;
+    alert(poly_2);
+    poly1_g = getPoly(poly_1).sortPoly();
+    poly2_g = getPoly(poly_2).sortPoly();
+    var poly3 = subtraction(poly1_g, poly2_g).sortPoly();
+    var ppp = poly3.getHead();
+    poly3.printPoly();
+}
+
+function mul() {
+        cle();
+    var poly_1 = document.getElementById("doc-ipt-1").value;
+    alert(poly_1);
+    var poly_2 = document.getElementById("doc-ipt-2").value;
+    alert(poly_2);
+    poly1_g = getPoly(poly_1).sortPoly();
+    poly2_g = getPoly(poly_2).sortPoly();
+    var poly3 = multiplication(poly1_g, poly2_g).sortPoly();
+    var ppp = poly3.getHead();
+    poly3.printPoly();
+}
+
 // rl.question("请输入一个多项式:", function(poly) {
 //     poly1 = getPoly(poly);
 //     rl.question("请输入另一个多项式:", function(poly) {
@@ -395,19 +436,16 @@ var poly1, poly2, poly3, poly4, poly5;
 //     });
 //     // 不加close，则不会结束
 // });
-poly1 = getPoly('4x^(-2)-5x+2');
-poly1 = poly1.sortPoly();
-poly2 = getPoly('5x^2+7');
-poly2 = poly2.sortPoly();
-// poly3 = subtraction(poly1, poly2);
-// poly3.printPoly();
 
-poly4 = multiplication(poly1, poly2).sortPoly();
-// poly5 = derivation(poly4);
-poly1.printPoly();
-console.log();
-poly2.printPoly();
-console.log();
-poly4.printPoly();
+
+// poly1 = getPoly('4x^(-2)-5x+2');
+// poly1 = poly1.sortPoly();
+// poly2 = getPoly('5x^2+7');
+// poly2 = poly2.sortPoly();
+// poly4 = multiplication(poly1, poly2).sortPoly();
+//poly4 = multiplication(poly1, poly2).sortPoly();
+// poly1.printPoly();
 // console.log();
-// poly5.printPoly();
+// poly2.printPoly();
+// console.log();
+// poly4.printPoly();

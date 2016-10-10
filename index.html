@@ -43,27 +43,27 @@
                 <div class="am-form-group">
                     <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">多项式1</label>
                     <div class="am-u-sm-10">
-                        <input type="email" id="doc-ipt-3" placeholder="输入第一个多项式" name="input1">
+                        <input type="text" id="doc-ipt-1" placeholder="输入第一个多项式" name="input1">
                     </div>
                 </div>
 
                 <div class="am-form-group">
                     <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">多项式2</label>
                     <div class="am-u-sm-10">
-                        <input type="password" id="doc-ipt-pwd-2" placeholder="输入第二个多项式" name="input2">
+                        <input type="text" id="doc-ipt-2" placeholder="输入第二个多项式" name="input2">
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">结果显示</label>
                     <div class="am-u-sm-10">
-                        <input type="password" id="doc-ipt-pwd-2" placeholder="这里将显示结果" name="output">
+                        <input type="text" id="doc-ipt-3" placeholder="这里将显示结果" name="output" onfocus="this.blur()">
                     </div>
                 </div>
                 <div class="am-btn-group am-btn-group-justify">
                     <a class="am-btn am-btn-primary am-radius" role="button" onclick="add()">加法</a>
-                    <a class=" am-btn am-btn-secondary am-radius " role="button ">减法</a>
-                    <a class="am-btn am-btn-success am-radius " role="button ">乘法</a>
-                    <a class="am-btn am-btn-warning am-radius " role="button ">求导</a>
+                    <a class=" am-btn am-btn-secondary am-radius " role="button " onclick="sub()">减法</a>
+                    <a class="am-btn am-btn-success am-radius " role="button " onclick="mul()">乘法</a>
+                    <a class="am-btn am-btn-warning am-radius " role="button " onclick="">求导</a>
                 </div>
             </form>
         </div>
