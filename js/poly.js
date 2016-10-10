@@ -7,6 +7,13 @@
 /**
  * Created by fw on 16-10-5.
  */
+const process = require('process');
+const readline = require('readline');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 function LinkedList() {
     var Node = function(coef, expn) {
         this.coef = coef;
@@ -141,30 +148,25 @@ function LinkedList() {
         return node.next;
     };
     this.printPoly = function() {
-        var str;
         var p = head;
         var flag = 0;
         while (p) {
             if (p.coef >= 0) {
                 if (flag === 0) {
-                    x = p.coef + 'x^' + p.expn;
-                    //process.stdout.write(p.coef + 'X^' + p.expn);
+                    process.stdout.write(p.coef + 'X^' + p.expn);
                     //console.log(p.coef+'X^'+p.expn);
                     flag = 1;
                 } else {
-                    x = '+' + p.coef + 'x^' + p.expn;
-                    //process.stdout.write('+' + p.coef + 'X^' + p.expn);
+                    process.stdout.write('+' + p.coef + 'X^' + p.expn);
                     //console.log("+%.2fX^%d", p.coef, p.expn)
                 }
             } else {
                 flag = 1;
                 if (p.expn >= 0) {
-                    x = p.coef + 'x^' + p.expn;
-                    //process.stdout.write(p.coef + 'X^' + p.expn);
+                    process.stdout.write(p.coef + 'X^' + p.expn);
                     // console.log("%.2fX^%d", p.coef, p.expn);
                 } else {
-                    x = p.coef + 'x^(' + p.expn + ')';
-                    //process.stdout.write(p.coef + 'X^(' + p.expn + ')');
+                    process.stdout.write(p.coef + 'X^(' + p.expn + ')');
                     //console.log("%.2fX^(%d)", p.coef, p.expn);
                 }
             }
@@ -375,11 +377,6 @@ function derivation(poly) {
     return poly3;
 }
 var poly1, poly2, poly3, poly4, poly5;
-
-
-function add(){
-    
-}
 // rl.question("请输入一个多项式:", function(poly) {
 //     poly1 = getPoly(poly);
 //     rl.question("请输入另一个多项式:", function(poly) {
@@ -398,16 +395,19 @@ function add(){
 //     });
 //     // 不加close，则不会结束
 // });
+poly1 = getPoly('4x^(-2)-5x+2');
+poly1 = poly1.sortPoly();
+poly2 = getPoly('5x^2+7');
+poly2 = poly2.sortPoly();
+// poly3 = subtraction(poly1, poly2);
+// poly3.printPoly();
 
-
-// poly1 = getPoly('4x^(-2)-5x+2');
-// poly1 = poly1.sortPoly();
-// poly2 = getPoly('5x^2+7');
-// poly2 = poly2.sortPoly();
-// poly4 = multiplication(poly1, poly2).sortPoly();
-//poly4 = multiplication(poly1, poly2).sortPoly();
-// poly1.printPoly();
+poly4 = multiplication(poly1, poly2).sortPoly();
+// poly5 = derivation(poly4);
+poly1.printPoly();
+console.log();
+poly2.printPoly();
+console.log();
+poly4.printPoly();
 // console.log();
-// poly2.printPoly();
-// console.log();
-// poly4.printPoly();
+// poly5.printPoly();
