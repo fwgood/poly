@@ -1,25 +1,21 @@
-var x1 = 'x^(-6)';
-var x2 = '5x^(-6)';
-var x3 = 'x^6';
-var x4 = 'x';
-var x5 = '5x^6';
-<<<<<<< HEAD
-var x6 = '5'; 
-=======
-var x6 = '5';
->>>>>>> origin/master
-var reg3 = /[(x\^)]/;
-var reg;
-x1 = x1.split(reg3);
-x2 = x2.split(reg3);
-x3 = x3.split(reg3);
-x4 = x4.split(reg3);
-x5 = x5.split(reg3);
-x6 = x6.split(reg3);
+var x = '5x1+6x2+7x3=0';
+var a = x.split('=');
+var reg1 = /[\+\-](.*?)/g;
+var reg2 = /\d+x\d+/g;
+var r = a[0].match(reg1);
+var b = a[0].match(reg2);
+console.log(r);
+console.log(b);
+var i = 0;
 
-console.log(x1);
-console.log(x2);
-console.log(x3);
-console.log(x4);
-console.log(x5);
-console.log(x6);
+function Re(x1, x2) {
+    this.q1 = x1;
+    this.q2 = x2;
+}
+var ee = new Array();
+var pp = [];
+while (b[i]) {
+    pp[i] = b[i].split('x');
+    ee[i] = new Re(pp[i][0], pp[i][1]);
+    i++;
+}

@@ -145,28 +145,49 @@ function LinkedList() {
         var p = head;
         var flag = 0;
         while (p) {
-            if (p.coef >= 0) {
+            if (p.coef > 0) {
                 if (flag === 0) {
-                    str += p.coef + 'x^' + p.expn;
-                    document.getElementById("doc-ipt-3").value = str;
+                    if (p.expn > 0 && p.expn !== 1) {
+                        str += p.coef + 'x^' + p.expn;
+                        document.getElementById("doc-ipt-3").value = str;
+                    } else if (p.expn == 1) {
+                        str += p.coef;
+                        document.getElementById("doc-ipt-3").value = str;
+                    } else {
+                        str += p.coef + 'x^(' + p.expn + ')';
+                        document.getElementById("doc-ipt-3").value = str;
+                    }
+
                     //console.log(p.coef+'X^'+p.expn);
                     flag = 1;
                 } else {
-                    str += '+' + p.coef + 'x^' + p.expn;
-                    document.getElementById("doc-ipt-3").value = str;
-                    //console.log("+%.2fX^%d", p.coef, p.expn)
+                    if (p.expn > 0 && p.expn != 1) {
+                        str += '+' + p.coef + 'x^' + p.expn;
+                        document.getElementById("doc-ipt-3").value = str;
+                    } else if (p.expn == 1) {
+                        str += '+' + p.coef;
+                        document.getElementById("doc-ipt-3").value = str;
+                    } else {
+                        str += '+' + p.coef + 'x^(' + p.expn + ')';
+                        document.getElementById("doc-ipt-3").value = str;
+                    }
+
                 }
-            } else {
+            } else if (p.coef < 0) {
                 flag = 1;
-                if (p.expn >= 0) {
+                if (p.expn > 0) {
                     str += p.coef + 'x^' + p.expn;
                     document.getElementById("doc-ipt-3").value = str;
                     // console.log("%.2fX^%d", p.coef, p.expn);
-                } else {
+                } else if (p.expn < 0) {
                     str += p.coef + 'x^(' + p.expn + ')';
                     document.getElementById("doc-ipt-3").value = str;
                     //console.log("%.2fX^(%d)", p.coef, p.expn);
+                } else {
+                    str += p.coef;
                 }
+            } else {
+
             }
             p = p.next;
         }
@@ -219,7 +240,7 @@ Array.prototype.remove = function(val) {
         index = this.indexOf(val);
     }
 };
-var reg1 = /\d+x\^\(\-\d\)|\d+x\^\d|\dx|\d|\w/g;
+var reg1 = /\d+x\^\(\-\d\)|\d+x\^\d|\d+x|\d+|\w/g;
 var reg2 = /(\(\-)|[\+\-]/g;
 var reg3 = /[(x\^)]/;
 
@@ -228,7 +249,6 @@ function getPoly(input) {
     var signs = new Array();
     var ppp = input.match(reg2);
     console.log(ppp);
-    signs = ppp;
     //signs.remove('(-');
     if (ppp) {
         signs = ppp;
@@ -236,6 +256,9 @@ function getPoly(input) {
         if (signs[0] != '-') {
             signs.unshift('+');
         }
+    } else {
+        signs[0] = '+';
+
     }
     //console.log(terms);
     var linklist = new LinkedList();
@@ -439,6 +462,10 @@ function add() {
         var poly3 = addition(poly1_g, poly2_g).sortPoly();
         var ppp = poly3.getHead();
         poly3.printPoly();
+        if (poly3.getHead().coef == '3') {
+            document.getElementById("doc-ipt-1").value = '0';
+
+        }
     }
 
 }
@@ -456,6 +483,10 @@ function sub() {
         var poly3 = subtraction(poly1_g, poly2_g).sortPoly();
         var ppp = poly3.getHead();
         poly3.printPoly();
+        if (poly3.getHead().coef == '3') {
+            document.getElementById("doc-ipt-1").value = '0';
+
+        }
     }
 }
 
@@ -472,6 +503,10 @@ function mul() {
         var poly3 = multiplication(poly1_g, poly2_g).sortPoly();
         var ppp = poly3.getHead();
         poly3.printPoly();
+        if (poly3.getHead().coef == '3') {
+            document.getElementById("doc-ipt-1").value = '0';
+
+        }
     }
 }
 
@@ -491,17 +526,31 @@ function der() {
                 poly1_g = getPoly(poly_1).sortPoly();
                 var poly3 = derivation(poly1_g);
                 var ppp = poly3.getHead();
-                poly1_g.printPoly();
                 poly3.printPoly();
+                if (poly3.getHead().coef == '0') {
+                    document.getElementById("doc-ipt-3").value = '0';
+
+                }
             } else {
                 poly2_g = getPoly(poly_2).sortPoly();
                 var poly3 = derivation(poly2_g);
                 var ppp = poly3.getHead();
                 poly3.printPoly();
+                if (poly3.getHead().coef == '3') {
+                    document.getElementById("doc-ipt-1").value = '0';
+
+                }
             }
 
         }
     }
+}
+
+function keep() {
+    var result = document.getElementById("doc-ipt-3").value;
+    clea();
+    document.getElementById("doc-ipt-1").value = result;
+
 }
 // rl.question("请输入一个多项式:", function(poly) {
 //     poly1 = getPoly(poly);

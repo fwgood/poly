@@ -226,16 +226,15 @@ Array.prototype.remove = function(val) {
         index = this.indexOf(val);
     }
 };
-var reg1 = /\d+x\^\(\-\d\)|\d+x\^\d|\dx|\d|\w/g;
+var reg1 = /\d+x\^\(\-\d\)|\d+x\^\d|\d+x|\d+|\w/g;
 var reg2 = /(\(\-)|[\+\-]/g;
 var reg3 = /[(x\^)]/;
 
 function getPoly(input) {
     var terms = input.match(reg1);
-    var signs = new Array();
+    var signs = [];
     var ppp = input.match(reg2);
     console.log(ppp);
-    signs = ppp;
     //signs.remove('(-');
     if (ppp) {
         signs = ppp;
@@ -243,6 +242,8 @@ function getPoly(input) {
         if (signs[0] != '-') {
             signs.unshift('+');
         }
+    } else {
+        signs[0] = '+';
     }
     // if (input.match(reg2)) {
     //     signs = input.match(reg2);
@@ -439,7 +440,7 @@ var poly1, poly2, poly3, poly4, poly5;
 //     // 不加close，则不会结束
 // });
 
-poly1 = getPoly('-5x^(-2)-5x^2+5x^3+5x^(-6)-8x+6x');
+poly1 = getPoly('55x');
 var pppp = poly1.getHead();
 poly1 = poly1.sortPoly();
 pppp = poly1.getHead();
